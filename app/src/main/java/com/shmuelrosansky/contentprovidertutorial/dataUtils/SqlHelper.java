@@ -13,6 +13,7 @@ public class SqlHelper extends SQLiteOpenHelper{
     private static final String TAG = SqlHelper.class.getSimpleName();
 
     public static final String TABLE_TODO_ITEMS = "todo_items";
+
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_TIMESTAMP = "timestamp";
     public static final String COLUMN_TEXT = "text";
