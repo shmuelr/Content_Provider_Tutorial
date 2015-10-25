@@ -95,11 +95,11 @@ public class TodoItemsContentProvider extends ContentProvider {
         Log.d(TAG, "insert");
         int uriType = sURIMatcher.match(uri);
         SQLiteDatabase sqlDB = database.getWritableDatabase();
-        int rowsDeleted = 0;
         long id = 0;
         switch (uriType) {
             case TODOS:
                 id = sqlDB.insert(SqlHelper.TABLE_TODO_ITEMS, null, values);
+                sqlDB.close();
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);

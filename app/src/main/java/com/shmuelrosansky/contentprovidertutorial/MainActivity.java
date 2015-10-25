@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
                 final TodoItem item = adapter.getItem(viewHolder.getAdapterPosition());
                 Uri uri = Uri.parse(TodoItemsContentProvider.CONTENT_URI + "/" + item.getId());
                 getContentResolver().delete(uri, null, null);
@@ -173,8 +174,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             data.moveToFirst();
             List<TodoItem> items = new LinkedList<>();
             do{
-                TodoItem item = TodoItem.buildFromCursor(data);
-                items.add(item);
+                items.add(TodoItem.buildFromCursor(data));
             }while (data.moveToNext());
 
             adapter.addItems(items);
