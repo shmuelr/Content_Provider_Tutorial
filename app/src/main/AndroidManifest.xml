@@ -20,7 +20,7 @@
         </activity>
 
         <provider
-            android:name=".DataUtils.TodoItemsContentProvider"
+            android:name=".dataUtils.TodoItemsContentProvider"
             android:authorities="com.shmuelrosansky.contentprovidertutorial.contentprovider"
             android:enabled="true"
             android:exported="false" >

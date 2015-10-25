@@ -1,4 +1,4 @@
-package com.shmuelrosansky.contentprovidertutorial.DataUtils;
+package com.shmuelrosansky.contentprovidertutorial.dataUtils;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

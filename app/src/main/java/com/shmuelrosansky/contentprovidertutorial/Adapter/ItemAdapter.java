@@ -1,4 +1,4 @@
-package com.shmuelrosansky.contentprovidertutorial.Adapter;
+package com.shmuelrosansky.contentprovidertutorial.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

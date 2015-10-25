@@ -17,12 +17,15 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.shmuelrosansky.contentprovidertutorial.Adapter.ItemAdapter;
-import com.shmuelrosansky.contentprovidertutorial.DataUtils.TodoItemsContentProvider;
+import com.shmuelrosansky.contentprovidertutorial.adapter.ItemAdapter;
+import com.shmuelrosansky.contentprovidertutorial.dataUtils.TodoItemsContentProvider;
 import com.shmuelrosansky.contentprovidertutorial.models.TodoItem;
+import com.shmuelrosansky.contentprovidertutorial.utils.Tools;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -107,7 +110,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         final AppCompatEditText input = new AppCompatEditText(this);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.setInputType(InputType.TYPE_CLASS_TEXT);
-        builder.setView(input);
+        input.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));
+
+        final FrameLayout frameLayout = new FrameLayout(this);
+        int padding16 = (int) Tools.convertDpToPixel(16, this);
+        int padding8 = (int) Tools.convertDpToPixel(8, this);
+        frameLayout.setPadding(padding16, padding8, padding16, padding8);
+        frameLayout.addView(input);
+
+        builder.setView(frameLayout);
 
         // Set up the buttons
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {

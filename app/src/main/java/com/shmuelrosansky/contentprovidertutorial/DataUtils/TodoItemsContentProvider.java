@@ -1,4 +1,4 @@
-package com.shmuelrosansky.contentprovidertutorial.DataUtils;
+package com.shmuelrosansky.contentprovidertutorial.dataUtils;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;

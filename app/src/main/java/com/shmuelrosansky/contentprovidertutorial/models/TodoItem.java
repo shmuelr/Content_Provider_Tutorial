@@ -3,7 +3,7 @@ package com.shmuelrosansky.contentprovidertutorial.models;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.shmuelrosansky.contentprovidertutorial.DataUtils.SqlHelper;
+import com.shmuelrosansky.contentprovidertutorial.dataUtils.SqlHelper;
 
 /**
  * Created by User on 10/24/2015.
