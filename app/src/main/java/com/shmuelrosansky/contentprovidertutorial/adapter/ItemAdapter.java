@@ -23,13 +23,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private List<TodoItem> items = new ArrayList<>();
     private ItemClickListener itemClickListener;
 
-    public ItemAdapter(ItemClickListener listner){
-        itemClickListener = listner;
+    public ItemAdapter(ItemClickListener listener){
+        itemClickListener = listener;
     }
 
     public void addItem(TodoItem item){
         if(!items.contains(item)){
             items.add(item);
+            Collections.sort(items);
             notifyItemInserted(items.indexOf(item));
         }
     }
@@ -94,7 +95,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
 
     // The view holder listens to clicks on the
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView textView;
         CheckBox checkBox;
@@ -114,7 +115,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         }
     }
 
-    // Private listener fot the adapter to know about view clicks
+    // Private listener for the adapter to know about view clicks
     private interface ClickListener{
         void onItemClicked(int position);
     }
