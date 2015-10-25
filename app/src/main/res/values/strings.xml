@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Content Provider Tutorial</string>
+    <string name="action_settings">Settings</string>
+</resources>
