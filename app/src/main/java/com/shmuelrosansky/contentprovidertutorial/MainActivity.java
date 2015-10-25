@@ -166,21 +166,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Log.d(TAG, "Load Finished");
         if(data != null){
             Log.d(TAG, "We have " + data.getCount() + " items");
-            if(data.getCount() == 0){
+            if(data.moveToFirst()) {
+
+                List<TodoItem> items = new LinkedList<>();
+                do {
+                    items.add(TodoItem.buildFromCursor(data));
+                } while (data.moveToNext());
+
+                adapter.addItems(items);
+
+                showEmptyView(false);
+
+            } else {
                 showEmptyView(true);
-                return;
             }
 
-            data.moveToFirst();
-            List<TodoItem> items = new LinkedList<>();
-            do{
-                items.add(TodoItem.buildFromCursor(data));
-            }while (data.moveToNext());
-
-            adapter.addItems(items);
-
-            showEmptyView(false);
-        }else {
+            data.close();
+        } else {
             Log.w(TAG, "Data returned null!");
             showEmptyView(true);
         }
