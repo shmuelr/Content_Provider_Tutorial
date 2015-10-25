@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         recyclerView.setAdapter(adapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,11 +90,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                TodoItem item = adapter.getItem(viewHolder.getAdapterPosition());
+                final TodoItem item = adapter.getItem(viewHolder.getAdapterPosition());
                 Uri uri = Uri.parse(TodoItemsContentProvider.CONTENT_URI + "/" + item.getId());
                 getContentResolver().delete(uri, null, null);
 
                 adapter.removeItem(viewHolder.getAdapterPosition());
+
+                Snackbar.make(fab, "Item removed", Snackbar.LENGTH_SHORT).setAction("Undo", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getContentResolver().insert(TodoItemsContentProvider.CONTENT_URI, item.toContentValues());
+                    }
+                }).show();
             }
         });
 

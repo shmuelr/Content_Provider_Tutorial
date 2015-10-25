@@ -8,7 +8,7 @@ import com.shmuelrosansky.contentprovidertutorial.dataUtils.SqlHelper;
 /**
  * Created by User on 10/24/2015.
  */
-public class TodoItem {
+public class TodoItem implements Comparable<TodoItem>{
 
     private int id = -1;
     private String text;
@@ -90,4 +90,14 @@ public class TodoItem {
         return todoItem;
     }
 
+    @Override
+    public int compareTo(TodoItem another) {
+        if(this.getId() > another.getId()){
+            return 1;
+        }else if(this.getId() < another.getId()){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
 }

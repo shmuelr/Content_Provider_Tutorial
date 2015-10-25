@@ -12,6 +12,7 @@ import com.shmuelrosansky.contentprovidertutorial.models.TodoItem;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 items.add(item);
             }
         }
-
+        Collections.sort(items);
         notifyDataSetChanged();
     }
 
