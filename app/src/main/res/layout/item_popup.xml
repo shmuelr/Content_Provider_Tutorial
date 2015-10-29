@@ -34,4 +34,27 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/checkBox2"
         android:layout_alignEnd="@+id/checkBox2" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Use Reminder"
+        android:id="@+id/switch1"
+        android:layout_alignRight="@+id/editText2"
+        android:layout_alignEnd="@+id/editText2"
+        android:checked="true"
+        android:layout_alignBottom="@+id/button"
+        android:layout_alignTop="@+id/button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Reminder Time"
+        android:id="@+id/button"
+        android:layout_below="@+id/editText2"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignStart="@+id/editText2"
+        android:layout_toLeftOf="@+id/switch1"
+        android:layout_toStartOf="@+id/switch1" />
+
 </RelativeLayout>
