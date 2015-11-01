@@ -1,6 +1,8 @@
 package com.shmuelrosansky.contentprovidertutorial;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +33,8 @@ import com.shmuelrosansky.contentprovidertutorial.utils.Tools;
 import java.util.LinkedList;
 import java.util.List;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -42,6 +46,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private ItemAdapter adapter;
     private RecyclerView recyclerView;
     private TextView emptyView;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         adapter = new ItemAdapter(new ItemAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(TodoItem item) {
+
+
 
                 Uri uri = Uri.parse(TodoItemsContentProvider.CONTENT_URI + "/" + item.getId());
 
@@ -135,6 +146,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             public void onClick(DialogInterface dialog, int which) {
                 TodoItem todoItem = new TodoItem(input.getText().toString(), System.currentTimeMillis());
                 getContentResolver().insert(TodoItemsContentProvider.CONTENT_URI, todoItem.toContentValues());
+                getSupportLoaderManager().restartLoader(LOADER_ID, null, MainActivity.this);
+
+
             }
         });
 

@@ -1,9 +1,13 @@
 package com.shmuelrosansky.contentprovidertutorial.adapter;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -22,6 +26,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private List<TodoItem> items = new ArrayList<>();
     private ItemClickListener itemClickListener;
+    private int newItemPosition = -1;
 
     public ItemAdapter(ItemClickListener listener){
         itemClickListener = listener;
@@ -40,6 +45,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         for(TodoItem item : newItems){
             if(!items.contains(item)){
                 items.add(item);
+                newItemPosition = items.size() -1;
             }
         }
         Collections.sort(items);
@@ -81,10 +87,35 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         TodoItem item = items.get(position);
         holder.textView.setText(item.getText());
         holder.checkBox.setChecked(item.isCompleted());
+
+        if(position == newItemPosition){
+
+            holder.textView
+                    .animate()
+                    .setInterpolator(new AccelerateDecelerateInterpolator())
+                    .alpha(.3f)
+                    .setDuration(300)
+                    .setStartDelay(300)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
+                            holder.textView
+                                    .animate()
+                                    .setInterpolator(new DecelerateInterpolator())
+                                    .alpha(1f)
+                                    .setDuration(300)
+                                    .start();
+                        }
+                    }).start();
+
+            newItemPosition = -1;
+        }
+
     }
 
     @Override

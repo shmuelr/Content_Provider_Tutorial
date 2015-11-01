@@ -25,4 +25,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
 
+    compile 'uk.co.chrisjenx:calligraphy:2.1.0'
+
 }

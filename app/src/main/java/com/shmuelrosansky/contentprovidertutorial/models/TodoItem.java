@@ -1,14 +1,21 @@
 package com.shmuelrosansky.contentprovidertutorial.models;
 
+import android.app.AlarmManager;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.shmuelrosansky.contentprovidertutorial.dataUtils.SqlHelper;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by User on 10/24/2015.
  */
-public class TodoItem implements Comparable<TodoItem>{
+public class TodoItem implements Comparable<TodoItem>,Parcelable {
 
     private int id = -1;
     private String text;
@@ -100,4 +107,35 @@ public class TodoItem implements Comparable<TodoItem>{
             return 0;
         }
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.text);
+        dest.writeByte(completed ? (byte) 1 : (byte) 0);
+        dest.writeLong(this.createdTimestamp);
+
+    }
+
+    protected TodoItem(Parcel in) {
+        this.id = in.readInt();
+        this.text = in.readString();
+        this.completed = in.readByte() != 0;
+        this.createdTimestamp = in.readLong();
+    }
+
+    public static final Creator<TodoItem> CREATOR = new Creator<TodoItem>() {
+        public TodoItem createFromParcel(Parcel source) {
+            return new TodoItem(source);
+        }
+
+        public TodoItem[] newArray(int size) {
+            return new TodoItem[size];
+        }
+    };
 }
